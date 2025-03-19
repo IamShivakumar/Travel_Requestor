@@ -1,0 +1,9 @@
+#React modules
+frontend/node_modules
+frontend/.env
+
+# Python / Django
+backend/.venv
+backend/.env
+__pycache__/
+db.sqlite3
