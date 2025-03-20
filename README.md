@@ -69,15 +69,15 @@ npm run dev
 ```
 ### API EndPoints
 ### Authentication
-- POST /api/signup/ - Register a new user
-- POST /api/login/ - Login and generate JWT tokens
+- POST /authenticate/signup/ - Register a new user
+- POST /authenticate/login/ - Login and generate JWT tokens
 
 ### Travel Requests
 
-- GET /api/travel-requests/ - List all travel requests (Admin can view all, users can view their own)
-- POST /api/travel-requests/ - Create a new travel request
-- GET /api/travel-requests/{id}/ - Retrieve details of a specific travel request
-- PATCH /api/travel-requests/{id}/ - Update the status of a travel request (Admin only)
+- GET /users/travel-requests/ - List all travel requests (Admin can view all, users can view their own)
+- POST /users/travel-requests/ - Create a new travel request
+- GET /users/travel-requests/{id}/ - Retrieve details of a specific travel request
+- PATCH /users/travel-requests/{id}/ - Update the status of a travel request (Admin only)
 
 ### Permissions
 - Users can create travel requests and view their own requests.
