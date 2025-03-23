@@ -5,7 +5,8 @@
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
-        "runtime": "python3.12"
+        "runtime": "python3.12",
+        "pip": ["psycopg2-binary"]
       }
     }
   ],
@@ -14,6 +15,5 @@
       "src": "/(.*)",
       "dest": "main/wsgi.py"
     }
-  ],
-  "installCommand": "pip3.12 install --disable-pip-version-check --target . --upgrade -r requirements.txt"
+  ]
 }
