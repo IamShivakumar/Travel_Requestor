@@ -1,12 +1,11 @@
-from django.urls import path
-from .views import TravelRequestViewSet
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from .views import TravelRequestViewSet, chat
 
 router = DefaultRouter()
 router.register(r'travel-requests', TravelRequestViewSet, basename='travel-request')
 
 urlpatterns = [
-    
+    path('', include(router.urls)),
+    path('chat/', chat, name='chat'),
 ]
-
-urlpatterns += router.urls

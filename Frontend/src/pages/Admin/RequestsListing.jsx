@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useApiClient from '../../apiclient/apiclient'
 import { logout } from '../../redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
+import ChatBot from '../../components/ChatBot';
 
 const RequestsListing = () => {
   const navigate = useNavigate();
@@ -150,6 +151,9 @@ const RequestsListing = () => {
           </div>
         </div>
       </div>
+
+      {/* ChatBot */}
+      <ChatBot />
     </div>
   );
 };
