@@ -158,6 +158,7 @@ CORS_ALLOWED_ORIGINS = [
 ALLOWED_HOSTS = [
     'localhost',
     'travel-requestor-2d9v.vercel.app',
+    'travel-requestor-backend.vercel.app',
     '.vercel.app'
 ]
 
