@@ -12,6 +12,7 @@ django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 dotenv = "*"
 openai = "*"
+google-genai = "*"
 
 [dev-packages]
 

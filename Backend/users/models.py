@@ -16,7 +16,7 @@ class TravelRegistration(models.Model):
         ('self', 'Self'),
         ('travelDesk', 'Travel Desk'),
     ]
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='user_requests')
     project_name = models.CharField(max_length=255)
     travel_purpose = models.TextField()
     start_date = models.DateField()
