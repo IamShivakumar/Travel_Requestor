@@ -4,7 +4,7 @@ import {jwtDecode} from 'jwt-decode';
 const useApiClient = (navigate) => {
 
   const apiClient = axios.create({
-    baseURL: 'http://127.0.0.1:8000/',
+    baseURL: 'https://travel-requestor-backend.vercel.app/',
   });
 
   // Function to get a new access token using the refresh token

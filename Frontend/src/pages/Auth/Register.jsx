@@ -19,7 +19,7 @@ const Register = () => {
   
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/authenticate/register/", {...data});
+      const response = await axios.post("https://travel-requestor-backend.vercel.app/authenticate/register/", {...data});
       toast.success("Successfully Registered!");
       navigate('/login');
     } catch (error) {

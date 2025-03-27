@@ -15,7 +15,7 @@ const Login = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/authenticate/login/", { ...data, isAdmin});
+      const response = await axios.post("https://travel-requestor-backend.vercel.app/authenticate/login/", { ...data, isAdmin});
       const { access_token, refresh_token, user } = response.data;
       dispatch(setUser({ user: user }))
       localStorage.setItem("user", JSON.stringify(user));
