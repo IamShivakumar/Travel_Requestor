@@ -1,9 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import useapiclient from '../apiclient/apiclient'
+import { useNavigate } from 'react-router-dom';
 
 const ChatBot = () => {
+  const apiclient=useapiclient()
+  const navigate=useNavigate()
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef(null);
@@ -16,11 +21,15 @@ const ChatBot = () => {
     }
   };
 
+  // Track previous messages length to detect new messages
+  const prevMessagesLengthRef = useRef(0);
+
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && messages.length > prevMessagesLengthRef.current) {
       scrollToBottom();
+      prevMessagesLengthRef.current = messages.length;
     }
-  }, [messages.length]); // Only scroll when messages array length changes
+  }, [isOpen, messages.length]); // Only scroll when messages length increases
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -33,7 +42,7 @@ const ChatBot = () => {
       // Add welcome message when chat is opened
       const welcomeMessage = {
         type: 'bot',
-        content: `👋 Welcome to Travel Request Assistant!\n\nI can help you with the following information:\n\n📊 Statistics\n• Total number of requests\n• Pending/approved/rejected counts\n• Approval/rejection rates\n\n📋 Recent Activity\n• Latest travel requests\n• Recent status changes\n\n🚗 Travel Details\n• Travel mode distribution\n• Booking mode statistics\n\n💡 Quick Commands:\n• "Show total requests"\n• "Pending requests"\n• "Recent requests"\n• "Travel mode"\n• "Status overview"\n• "Request percentages"\n\nType your question or click any option above!`,
+        content: `👋 Welcome to Travel Request Assistant!\n\nHow can I can help you ?`,
         timestamp: new Date().toLocaleTimeString()
       };
       setMessages([welcomeMessage]);
@@ -55,20 +64,10 @@ const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      const accessToken = localStorage.getItem('access_token');
-      
-      if (!accessToken) {
-        throw new Error('No authentication token found');
-      }
 
-      const response = await axios.post('http://localhost:8000/users/chat/', 
+      const response = await apiclient.post('users/chat/', 
         { message: inputMessage },
-        {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
-        }
+        navigate
       );
 
       const botMessage = {
@@ -181,7 +180,7 @@ const ChatBot = () => {
       </div>
 
       {/* Quick Commands */}
-      {messages.length === 1 && (
+      {/* {messages.length === 1 && (
         <div className="px-4 py-2 bg-gray-50 border-t">
           <div className="flex flex-wrap gap-2">
             <button
@@ -222,7 +221,7 @@ const ChatBot = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Chat Input */}
       <form onSubmit={handleSendMessage} className="p-4 border-t">
