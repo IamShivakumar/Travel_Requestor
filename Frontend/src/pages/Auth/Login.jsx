@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { setUser } from '../../redux/slices/userSlice';
+import LoadingModal from '../../components/LoadingModal';
 
 
 const Login = () => {
@@ -13,7 +14,9 @@ const Login = () => {
   const dispatch = useDispatch()
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
       const response = await axios.post("https://travel-requestor-backend.vercel.app/authenticate/login/", { ...data, isAdmin});
       const { access_token, refresh_token, user } = response.data;
@@ -38,10 +41,13 @@ const Login = () => {
       } else {
         toast.error("An error occurred. Please try again.");
       }
+    }finally {
+      setIsLoading(false);
     }
-
   };
   return (
+  <>
+  <LoadingModal isOpen={isLoading}/>
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex max-w-6xl bg-white rounded-lg shadow-lg w-full">
         {/* Left Section (Image) */}
@@ -109,6 +115,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 
