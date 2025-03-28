@@ -40,6 +40,7 @@ def get_travel_stats():
             'travel_mode', 
             'user__username',
             'project_name',
+            'travel_purpose',
             'start_date',
             'start_location',
             'end_location',
@@ -53,6 +54,7 @@ def get_travel_stats():
         {
             'username': req['user__username'],
             'project': req['project_name'],
+            'purpose':req['travel_purpose'],
             'status': req['status'],
             'travel_mode': req['travel_mode'],
             'route': f"{req['start_location']} to {req['end_location']}",
@@ -93,7 +95,7 @@ def chat(request):
         Total Requests: {stats['recent_requests']}
 
         Recent Requests:
-        {'\n'.join(f"- {req['username']}'s request for {req['project']} ({req['status']}) - {req['route']} on {req['date']} by {req['travel_mode']}" for req in stats['recent_requests'])}
+        {'\n'.join(f"- {req['username']}'s request for {req['project']} ({req['status']}) Purpose :{req['purpose']} - {req['route']} on {req['date']} by {req['travel_mode']}" for req in stats['recent_requests'])}
 
         User Question: {message}
 
